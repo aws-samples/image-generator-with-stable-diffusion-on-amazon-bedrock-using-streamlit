@@ -1,0 +1,16 @@
+version: '3'
+services:
+  myapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8501:8501
+    volumes:
+      - ./apps/:/apps/
+    command:
+    - streamlit
+    - run
+    - app.py
+    env_file:
+    - .env
