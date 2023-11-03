@@ -3,6 +3,9 @@ Image Generator with Stable Diffusion on Amazon Bedrock using Streamlit
 
 This is a Web Application based on [Streamlit](https://streamlit.io/), which leverage Stable Diffusion model provided by Amazon Bedrock. It is deployed as containers and target to deploy to Amazon ECS for production use.
 
+
+![Show Case](./snapshots/hourse-near-a-river.png)
+
 ## Prequisite
 1. Docker environment
 2. docker-compose installed - Optional for local development only
