@@ -9,6 +9,8 @@ import os
 
 DEBUG = os.getenv("DEBUG", False)
 DEFAULT_SEED = os.getenv("DEFAULT_SEED", 12345)
+MAX_SEED = 4294967295
+MODEL_ID = "stability.stable-diffusion-xl-v1"
 NEGATIVE_PROMPTS = [
     "bad anatomy", "distorted", "blurry",
     "pixelated", "dull", "unclear",
@@ -46,11 +48,8 @@ STYLES_MAP = {
     "無(None)": "None",
 }
 
-bedrock_runtime = boto3.client('bedrock-runtime')
 
-contentType = "application/json"
-accept = "application/json"
-modelId = "stability.stable-diffusion-xl-v0"
+bedrock_runtime = boto3.client('bedrock-runtime')
 
 
 @st.cache_data(show_spinner=False)
@@ -67,11 +66,10 @@ def gen_img_from_bedrock(prompt, style, seed=DEFAULT_SEED):
         "style_preset": style,
         "negative_prompts": NEGATIVE_PROMPTS
     })
-    modelId = "stability.stable-diffusion-xl"
     accept = "application/json"
     contentType = "application/json"
     response = bedrock_runtime.invoke_model(
-        body=body, modelId=modelId, accept=accept, contentType=contentType
+        body=body, modelId=MODEL_ID, accept=accept, contentType=contentType
     )
     response_body = json.loads(response.get("body").read())
     image_bytes = response_body.get("artifacts")[0].get("base64")
@@ -109,7 +107,7 @@ if __name__ == '__main__':
         seed_input = st.sidebar.number_input(
             "Seed", value=DEFAULT_SEED, placeholder=DEFAULT_SEED, key="numeric", on_change=update_slider)
         seed_slider = st.sidebar.slider(
-            'Seed Slider', min_value=0, value=seed_input, max_value=99999, step=1, key="slider",
+            'Seed Slider', min_value=0, value=seed_input, max_value=MAX_SEED, step=1, key="slider",
             on_change=update_numin, label_visibility="hidden")
         seed = seed_input | seed_slider
 
