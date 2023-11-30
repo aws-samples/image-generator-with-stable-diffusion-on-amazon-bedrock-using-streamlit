@@ -8,6 +8,7 @@ services:
       - 8501:8501
     volumes:
       - ./apps/:/apps/
+      - ~/.aws:/root/.aws # If not provide AWS credentials from .env, just load your local AWS credentails
     command:
     - streamlit
     - run
