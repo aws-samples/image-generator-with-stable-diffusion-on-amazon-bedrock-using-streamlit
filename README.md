@@ -6,7 +6,7 @@ This is a Web Application based on [Streamlit](https://streamlit.io/), which lev
 
 ![Show Case](./snapshots/hourse-near-a-river.png)
 
-## Prequisite
+## Prerequisite
 1. Docker environment
 2. docker-compose installed - Optional for local development only
 3. [Copilot CLI](https://aws.github.io/copilot-cli/) for Amazon ECS deploy
@@ -26,8 +26,11 @@ Update the AWS Credentials inside `.env`
 docker-compose up --build
 ```
 
-## Deploy to Amazon ECS
+## Production
+### Architecture
+![Architecture](./snapshots/arch-diagram.png)
 
+### Deployment
 1. Init the project (First time only)
 ```
 copilot init
